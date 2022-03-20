@@ -6,3 +6,4 @@ Membres du binôme :
 
 ## Exercice 1
 
+Omar Alami
