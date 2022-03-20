@@ -5,48 +5,18 @@ Membres du binôme :
 - ARICHANDRA Santhos
 
 ## Exercice 1
-c ========================================[ Problem Statistics ]===========================================
-c |                                                                                                       |
-c |  Number of variables:             8                                                                   |
-c |  Number of clauses:               6                                                                   |
-c |  Parse time:                   0.00 s                                                                 |
-c |                                                                                                       |
-c | Preprocesing is fully done
-c |  Eliminated clauses:           0.00 Mb                                                                |
-c |  Simplification time:          0.00 s                                                                 |
-c |                                                                                                       |
-c ========================================[ MAGIC CONSTANTS ]==============================================
-c | Constants are supposed to work well together :-)                                                      |
-c | however, if you find better choices, please let us known...                                           |
-c |-------------------------------------------------------------------------------------------------------|
-c | Adapt dynamically the solver after 100000 conflicts (restarts, reduction strategies...)               |
-c |-------------------------------------------------------------------------------------------------------|
-c |                                |                                |                                     |
-c | - Restarts:                    | - Reduce Clause DB:            | - Minimize Asserting:               |
-c |   * LBD Queue    :     50      |   * First     :   2000         |    * size <  30                     |
-c |   * Trail  Queue :   5000      |   * Inc       :    300         |    * lbd  <   6                     |
-c |   * K            :   0.80      |   * Special   :   1000         |                                     |
-c |   * R            :   1.40      |   * Protected :  (lbd)< 30     |                                     |
-c |                                |                                |                                     |
-c ==================================[ Search Statistics (every  10000 conflicts) ]=========================
-c |                                                                                                       |
-c |          RESTARTS           |          ORIGINAL         |              LEARNT              | Progress |
-c |       NB   Blocked  Avg Cfc |    Vars  Clauses Literals |   Red   Learnts    LBD2  Removed |          |
-c =========================================================================================================
-c last restart ## conflicts  :  0 0 
-c =========================================================================================================
-c restarts              : 1 (0 conflicts in avg)
-c blocked restarts      : 0 (multiple: 0) 
-c last block at restart : 0
-c nb ReduceDB           : 0
-c nb removed Clauses    : 0
-c nb learnts DL2        : 0
-c nb learnts size 2     : 0
-c nb learnts size 1     : 0
-c conflicts             : 0              (0 /sec)
-c decisions             : 1              (0.00 % random) (820 /sec)
-c propagations          : 0              (0 /sec)
-c nb reduced Clauses    : 0
-c CPU time              : 0.001219 s
 
+Pour la première théorie, on obtient le résultat suivant avec Glucose :
 s SATISFIABLE
+v 1 -2 -3 4 -5 -6 7 -8 0
+
+Pour la deuxième théorie, on obtient le résultat suivant :
+s SATISFIABLE
+v 1 -2 -3 4 5 -6 -7 -8 -9 10 -11 12 -13 -14 -15 -16 0
+
+On vérifie que la formule F de l'exercice 2 est bien insatisfiable. On obtient le résultat suivant :
+s UNSATISFIABLE
+
+## Exercice 2
+
+Afin de coder les différentes variables et contraintes du sujet, on décide de mettre en place un ficher allant réaliser des opérations d'écriture de fichier lors de son exécution.
