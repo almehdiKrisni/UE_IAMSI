@@ -1,5 +1,4 @@
 # Fichier python concernant la mise en place des fichiers variables-contraintes de Championnat
-import pycosat
 
 # Partie 2 - Modélisation
 
@@ -81,7 +80,8 @@ def encoderC2(ne, nj):
 def encoder(ne, nj) :
     # On met en place une méthode allant permettre l'encodage de l'ensemble directement sur
     # un fichier
-    c = encoderC1(ne, nj) + encoderC2(ne, nj)
+    c = encoderC1(ne, nj)
+    c += encoderC2(ne, nj)
 
     # On compte le nombre de contraintes avec le nombre de retour à la ligne et le nombre de variables
     nbC = c.count('\n')
@@ -98,4 +98,4 @@ def generationCNF(ne, nj) :
 
 
 # Partie EXEC
-generationCNF(3, 4)
+generationCNF(3, 6)
