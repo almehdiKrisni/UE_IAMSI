@@ -5,5 +5,3 @@ Membres du binôme :
 - ARICHANDRA Santhos
 
 ## Exercice 1
-
-Omar Alami
