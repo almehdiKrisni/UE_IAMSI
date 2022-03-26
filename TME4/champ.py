@@ -1,6 +1,8 @@
 # Fichier python concernant la mise en place des fichiers variables-contraintes de Championnat
+import pycosat
 
-# Partie 2 - Modélisation
+# -------------------------------------------------------------------------------------
+# Exercice 2 - Modélisation
 
 # Question 2
 def codage(ne, nj, j, x, y) :
@@ -16,7 +18,8 @@ def decodage(k, ne) :
     y = (k - 1) % ne
     return j, x, y
 
-## Partie 3 - Génération d'un planning de matchs
+# -------------------------------------------------------------------------------------
+# Exercice 3 - Génération d'un planning de matchs
 
 # Question 1 - Contraintes de cardinalité
 def auMoinsUn(v) :
@@ -96,6 +99,80 @@ def generationCNF(ne, nj) :
     with open("champSys.cnf", 'w') as file :
         file.write(encoder(ne, nj))
 
+# Question 4
+def generationSys(fileCNF) :
+    # Permet la transformation d'un fichier cnf en une base de contraintes Python
+    c = []
+    
+    with open(fileCNF, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            if (line[0] != 'c') and (line[0] != 'p') :
+                if (line.split()[:-1] != []) :
+                    c.append([int(i) for i in line.split()[:-1]])
+    return c
 
+def decoder(fileCNF, ne, nj, teamNames="teamNames.txt") :
+    # Permet la création
+    sol = pycosat.solve(generationSys(fileCNF))
+
+    # Dans le cas où le modèle est insatisfiable
+    if (sol == 'UNSAT') :
+        print("Il n'existe aucune solution au problème lié au fichier", fileCNF, ".")
+        return None
+
+    planning = {'Jour ' + str(j + 1) : [] for j in range(nj)}
+    
+    # Récupération des noms des équipes
+    if teamNames != None:
+        teams_names = open(teamNames, 'r').read().splitlines()
+    
+    for s in sol :
+        if (s >= 0) :
+            j, x, y = decodage(s, ne)
+            if (teamNames != None) :
+                x = teams_names[x]
+                y = teams_names[y]
+            planning['Jour ' + str(j + 1)].append((x , y))
+    
+    return planning
+
+def affichePlanningPretty(planning) :
+    # Méthode permettant d'afficher un planning d'une manière plus lisible
+    for j in planning :
+        print(j)
+        for m in planning[j] :
+            print(m)
+
+# -------------------------------------------------------------------------------------
+# Exercice 4 - Décodage
+import time
+
+def nbJoursMin(minNE, maxNE) :
+    # Cette méthode permet de déterminer le nombre de jours minimum nécessaires afin de pouvoir
+    # créer un système à ne équipes satisfiables
+
+    for ne in range(minNE, maxNE + 1) :
+        startTime = time.time() # Temps de départ
+
+        notSol = True
+        nj = 1
+
+        # On cherche tant qu'on a pas de solution ou qu'on ne dépasse pas les 10 secondes
+        while (notSol) and (time.time() - startTime < 10) :
+            generationCNF(ne, nj)
+            sol = pycosat.solve(generationSys("champSys.cnf"))
+
+            if (sol != "UNSAT") :
+                notSol = False
+                print("Pour", ne, "équipes, il faut au moins", nj, "jours.")
+
+            nj += 1
+
+# -------------------------------------------------------------------------------------
 # Partie EXEC
+
 generationCNF(3, 6)
+pln = decoder("champSys.cnf", 3, 6)
+affichePlanningPretty(pln)
+nbJoursMin(3, 10)
