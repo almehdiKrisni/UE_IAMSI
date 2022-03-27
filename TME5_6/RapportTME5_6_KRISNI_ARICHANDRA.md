@@ -125,4 +125,19 @@ On crée le graphe présenté sur le sujet du TME. On obtient 96 modèles de col
 Visuellement, il s'agit de la coloration suivante (graphe réalisé à la main sur le site *https://www.canva.com/*) :
 <img src="Exercice4/Pictures/graphTME56.png" height="200" width="200"/>
 
+### **Exercice 5 - Casse-tête logique**
 
+Soit un système où l'on considère cinq maisons de cinq couleurs différentes. Dans chacune de ces maisons vit une personne d'une nationalité différente. Chacune de ces personnes boit une certaine boisson, fume une certaine marque de cigarettes et garde un certain type d'animal. Aucun d'eux ne possède le même animal qu'un autre, ne boit la même boisson ou ne fume la même marque de cigarettes.
+
+Notre objectif est de découvrir qui parmi toutes ces personnes possède des poissons.
+
+On dispose d'un certaine nombres d'informations fournies par l'énoncé que l'on transforme en prédicats. On met en place les contraintes d'exclusivité de l'énoncé (deux personnes ne peuvent pas avoir un trait en commun).
+
+Par résolution, on obtient la solution unique suivante :
+- possede(suedois,chien) 
+- possede(britannique,oiseaux) 
+- possede(norvegien,chats) 
+- possede(danois,chevaux) 
+- possede(allemand,poissons)
+
+On en conclut donc que la personne ayant des poissons est l'allemand.
