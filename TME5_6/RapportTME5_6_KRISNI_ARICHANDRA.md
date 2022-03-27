@@ -105,4 +105,24 @@ On cherche alors à la résoudre grâce au résolveur en ajoutant comme contrain
 Ce remplissage correspond visuellement à la grille (générée sur le site *https://sudoku9x9.com/smartsolver.php*) :<br/>
 <img src="Exercice3/Pictures/grilleTMEresolue.png" height="200" width="200"/>
 
+### **Exercice 4 - Question de coloration**
+
+Un graphe G est dit n-coloriable s'il existe une fonction *f* associant à chaque noeud de G un nombre entier compris entre 1 et *n*, telle que *f(x)* != *f(y)* pour toute paire *(x,y)* de noeuds adjacents dans G. On écrit donc un programme permettant de trouver toutes les colorations possibles d'un graphe G.
+
+Il faut dans un premier temps gérer le nombre de couleurs et de noeuds à utiliser en créant les prédicats nécessaires. On écrit donc :
+- noeud(1..7).
+- couleur(1..n). (avec n une constante définie dans le programme)
+
+Il faut par la suite créer les arêtes du graphe. On réalise une liste des prédicats **arete(N1, N2)** et on crée par la suite les arêtes inverses puisqu'il n'y a pas de sens de circulation défini dans les graphes utilisés.
+
+On peut ensuite ajouter les contraintes de coloration. Un noeud ne peut être colorié que d'une seule couleur et deux noeuds adjcents ne peuvent avoir la même coloration. On traduit ces contraintes avec les règles suivantes :
+- 1 {coloration(N, C) : couleur(C)} 1 :- noeud(N).
+- :- coloration(N1, C), coloration(N2, C), noeud(N1), noeud(N2), couleur(C), N1 != N2, arete(N1, N2).
+
+On crée le graphe présenté sur le sujet du TME. On obtient 96 modèles de coloration différents après résolution. Un de ces modèles est :
+- coloration(3,1) coloration(7,1) coloration(4,2) coloration(2,3) coloration(5,3) coloration(1,4) coloration(6,4)
+
+Visuellement, il s'agit de la coloration suivante (graphe réalisé à la main sur le site *https://www.canva.com/*) :
+<img src="Exercice4/Pictures/graphTME56.png" height="200" width="200"/>
+
 

@@ -6,6 +6,7 @@
 valeur(1..9). % Différentes valeurs possibles
 pos(0..8). % Différentes positions X ou Y possibles
 
+% Il ne peut y avoir qu'une seule valeur par case.
 1 {case(X, Y, Z) : valeur(Z)} 1 :- pos(X), pos(Y).
 
 % Création de contraintes (à mettre en commentaire).
