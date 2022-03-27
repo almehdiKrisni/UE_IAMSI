@@ -4,7 +4,7 @@ Membres du binôme :
 - KRISNI Almehdi
 - ARICHANDRA Santhos
 
-### Exercice 1 - Premiers pas en ASP
+### **Exercice 1 - Premiers pas en ASP**
 
 Afin de se familiariser avec l'environnement de Clingo, on réalise quelques tests sur les différents programmes fournis par l'énoncé du TME.
 On affiche le ou les ensembles-réponses (answer sets) de chaque programme.
@@ -24,7 +24,7 @@ Programme 4 :
 
 D'après Clingo, tous les programmes sont satisfiables et disposent donc d'au moins un answer set.
 
-### Exercice 2 - Problème des 8-reines
+### **Exercice 2 - Problème des 8-reines**
 
 Le jeu des reines consiste à placer 8 reines sur un plateau de jeu de 8x8 cases, et une reine par colonne.
 Il existe différentes contraintes au sein du jeu puisqu'il est interdit de placer 2 reines sur la même ligne, colonne ou diagonale.
@@ -44,3 +44,51 @@ Les solutions obtenues sont :
 * reine(1,1) reine(2,6) reine(3,8) reine(4,3) reine(5,7) reine(6,4) reine(7,2) reine(8,5)
 * reine(1,1) reine(2,5) reine(3,8) reine(4,6) reine(5,3) reine(6,7) reine(7,2) reine(8,4)
 * reine(1,1) reine(2,7) reine(3,4) reine(4,6) reine(5,8) reine(6,2) reine(7,5) reine(8,3)
+
+### **Exercice 3 - Résolveur de Sudoku**
+
+Le jeu du Sudoku consiste à placer dans une grille, divisée en 9 sous-grilles distinctes, des chiffres allant de 1 à 9 jusqu'à remplir la grille entièrement. <br/>Les règles du jeu sont simples : chaque ligne, chaque colonne et chaque sous-grille ne doit contenir qu'une seule fois tous les chiffres de 1 à 9.
+
+On commence par créer l'ensemble des valeurs possibles et des positions possibles avec les prédicats suivants :
+- valeur(1..9) allant créer tous les chiffres
+- pos(0..8) allant créer toutes les positions en X et Y possible
+- case(X, Y, Z) signifiant qu'à la case (X, Y), on retrouve le chiffre Z
+
+On nous demande dans un premier temps de générer l'ensemble des plateaux possibles. On peut les générer grâce à la règle suivante :
+<br/>1 {case(X, Y, Z) : valeur(Z)} 1 :- pos(X), pos(Y).
+
+On obtient alors plus de 400 modèles en 10 secondes de résolution (interruption forcée). Une de ces solutions réalisables est (l'affichage est réalisé par colonnes.)
+- valeur(1) valeur(2) valeur(3) valeur(4) valeur(5) valeur(6) valeur(7) valeur(8) valeur(9) 
+- pos(0) pos(1) pos(2) pos(3) pos(4) pos(5) pos(6) pos(7) pos(8) 
+- case(0,0,9) case(1,0,3) case(2,0,3) case(3,0,9) case(4,0,5) case(5,0,6) case(6,0,6) case(7,0,6) case(8,0,6) 
+- case(0,1,6) case(1,1,3) case(2,1,3) case(3,1,3) case(4,1,3) case(5,1,3) case(6,1,7) case(7,1,9) case(8,1,7) 
+- case(0,2,7) case(1,2,7) case(2,2,3) case(3,2,3) case(4,2,3) case(5,2,3) case(6,2,3) case(7,2,3) case(8,2,3) 
+- case(0,3,3) case(1,3,3) case(2,3,3) case(3,3,3) case(4,3,9) case(5,3,9) case(6,3,9) case(7,3,5) case(8,3,9) 
+- case(0,4,5) case(1,4,5) case(2,4,9) case(3,4,5) case(4,4,3) case(5,4,3) case(6,4,3) case(7,4,3) case(8,4,3) 
+- case(0,5,3) case(1,5,3) case(2,5,3) case(3,5,3) case(4,5,3) case(5,5,3) case(6,5,3) case(7,5,3) case(8,5,3) 
+- case(0,6,3) case(1,6,3) case(2,6,3) case(3,6,3) case(4,6,3) case(5,6,3) case(6,6,3) case(7,6,3) case(8,6,3) 
+- case(0,7,3) case(1,7,6) case(2,7,6) case(3,7,3) case(4,7,8) case(5,7,5) case(6,7,3) case(7,7,4) case(8,7,7) 
+- case(0,8,5) case(1,8,7) case(2,8,8) case(3,8,6) case(4,8,5) case(5,8,4) case(6,8,3) case(7,8,6) case(8,8,3)
+
+On peut ajouter des contraintes, comme par exemple la case(0,1) devant contenir la valeur 7 et la case (1,0) la valeur 8. On obtient alors une solution :
+- case(1,0,8) case(0,1,7) *(les contraintes)*
+- case(0,0,9) case(2,0,3) case(3,0,3) case(4,0,9) case(5,0,5) case(6,0,6) case(7,0,6) case(8,0,6) 
+- case(1,1,6) case(2,1,8) case(3,1,3) case(4,1,3) case(5,1,3) case(6,1,3) case(7,1,3) case(8,1,7) 
+- case(0,2,7) case(1,2,7) case(2,2,5) case(3,2,5) case(4,2,3) case(5,2,3) case(6,2,3) case(7,2,3) case(8,2,3) 
+- case(0,3,3) case(1,3,3) case(2,3,3) case(3,3,3) case(4,3,3) case(5,3,9) case(6,3,5) case(7,3,9) case(8,3,5) 
+- case(0,4,9) case(1,4,5) case(2,4,5) case(3,4,9) case(4,4,5) case(5,4,3) case(6,4,3) case(7,4,3) case(8,4,3) 
+- case(0,5,3) case(1,5,3) case(2,5,3) case(3,5,3) case(4,5,3) case(5,5,3) case(6,5,3) case(7,5,3) case(8,5,3) 
+- case(0,6,3) case(1,6,3) case(2,6,3) case(3,6,3) case(4,6,3) case(5,6,3) case(6,6,3) case(7,6,3) case(8,6,3) 
+- case(0,7,6) case(1,7,6) case(2,7,7) case(3,7,7) case(4,7,7) case(5,7,3) case(6,7,5) case(7,7,8) case(8,7,7) 
+- case(0,8,5) case(1,8,7) case(2,8,8) case(3,8,6) case(4,8,5) case(5,8,4) case(6,8,3) case(7,8,6) case(8,8,3)
+
+On commence désormais à reproduire les contraintes du jeu. La première règle stipule qu'on ne peut pas retrouver 2 fois le même chiffre sur la même ligne. On ajoute la règle :
+<br/>:- case(X, Y, Z), case(X, YY, Z), Y != YY, pos(X), pos(Y), pos(YY), valeur(Z).
+
+La seconde règle stipule qu'on ne peut pas retrouver 2 fois le même chiffre sur la même colonne. On ajoute la règle :
+<br/>:- case(X, Y, Z), case(XX, Y, Z), X != XX, pos(X), pos(XX), pos(Y), valeur(Z).
+
+La troisième règle stipule qu'on ne peut pas retrouver 2 fois le même chiffre dans la même sous-grille. Une sous-grille est un ensemble de 3x3 cases. On peut savoir savoir si 2 cases dans la même sous_grille si les valeurs entières des divisions par 3 de leurs positions sont égales. On ajoute la règle :
+<br/>:- case(X,Y,Z), case(XX, YY, Z), X/3 == XX/3, Y/3 == YY/3, X!= XX, Y != YY, pos(X), pos(XX), pos(Y), pos(YY), valeur(Z).
+
+En ajoutant ces 3 contraintes, on obtient une solution :
